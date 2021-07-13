@@ -23,7 +23,7 @@ BaselineOfAWS >> baseline: spec [
 					spec repository: 'github://svenvc/NeoJSON/repository' ].
 			spec 
 				baseline: 'XMLParser' 
-				with: [ spec repository: 'github://pharo-contributions/XML-XMLParser/src' ].
+				with: [ spec repository: 'github://tblanchard/XML-XMLParser/src' ].
 			spec
 				for: #'pharo3.x'
 				do: [ 
