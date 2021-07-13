@@ -1,7 +1,7 @@
 Class {
 	#name : #BaselineOfAWS,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfAWS'
+	#category : #BaselineOfAWS
 }
 
 { #category : #baselines }
@@ -21,12 +21,9 @@ BaselineOfAWS >> baseline: spec [
 				baseline: 'NeoJSON'
 				with: [ 
 					spec repository: 'github://svenvc/NeoJSON/repository' ].
-			spec
-				project: 'XMLParser'
-				with: [ spec
-						className: 'ConfigurationOfXMLParser';
-						versionString: #stable;
-						repository: 'http://smalltalkhub.com/mc/PharoExtras/XMLParser/main' ].
+			spec 
+				baseline: 'XMLParser' 
+				with: [ spec repository: 'github://pharo-contributions/XML-XMLParser/src' ].
 			spec
 				for: #'pharo3.x'
 				do: [ 
