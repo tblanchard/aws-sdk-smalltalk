@@ -13,10 +13,10 @@ BaselineOfAWS >> baseline: spec [
 			spec 
 				baseline: 'NeoJSON'
 				with: [ 
-					spec load: #(Core); repository: 'github://svenvc/NeoJSON/repository' ].
+					spec loads: #(Core); repository: 'github://svenvc/NeoJSON/repository' ].
 			spec 
 				baseline: 'XMLParser' 
-				with: [ spec load: #(Core); repository: 'github://tblanchard/XML-XMLParser/src' ].
+				with: [ spec loads: #(Core); repository: 'github://tblanchard/XML-XMLParser/src' ].
 			spec
 				package: 'AWS-Core';
 				package: 'AWS-DynamoDB' with: [ spec requires: #('AWS-Core') ];
