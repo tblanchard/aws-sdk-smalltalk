@@ -1,7 +1,7 @@
 Class {
 	#name : #AETNotifications,
-	#superclass : #JsonObject,
-	#category : 'AWS-ElasticTranscoder-Model'
+	#superclass : #Dictionary,
+	#category : #'AWS-ElasticTranscoder-Model'
 }
 
 { #category : #'instance creation' }

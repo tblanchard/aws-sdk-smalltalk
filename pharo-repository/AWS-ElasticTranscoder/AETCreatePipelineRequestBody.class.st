@@ -3,8 +3,8 @@ http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/create-pipeli
 "
 Class {
 	#name : #AETCreatePipelineRequestBody,
-	#superclass : #JsonObject,
-	#category : 'AWS-ElasticTranscoder-Model'
+	#superclass : #Dictionary,
+	#category : #'AWS-ElasticTranscoder-Model'
 }
 
 { #category : #accessing }
