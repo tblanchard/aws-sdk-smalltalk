@@ -71,7 +71,7 @@ DynamoDBMapper >> loadFrom: jsonObject [
 { #category : #private }
 DynamoDBMapper >> loadItemString: anObject [
 	| jsonObject dict |
-	jsonObject := Json readFrom: anObject readStream.
+	jsonObject := (NeoJSONReader on: anObject readStream) next.
 
 	dict := Dictionary new.
 	jsonObject keysDo: [:k | | value |
