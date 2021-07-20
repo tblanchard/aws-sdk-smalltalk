@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'modifiers'
 	],
-	#category : 'AWS-DynamoDB-Operations'
+	#category : #'AWS-DynamoDB-Operations'
 }
 
 { #category : #printing }
@@ -14,7 +14,7 @@ DynamoDBOperations >> jsonWriteOn: aStream [
 
 { #category : #accessing }
 DynamoDBOperations >> modifiers [
-	^ modifiers ifNil: [modifiers := JsonObject new ]
+	^ modifiers ifNil: [modifiers := Dictionary new ]
 ]
 
 { #category : #accessing }

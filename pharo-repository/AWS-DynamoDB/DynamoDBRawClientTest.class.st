@@ -4,7 +4,7 @@ A DynamoDBRawClientTest is a test class for testing the behavior of DynamoDBRawC
 Class {
 	#name : #DynamoDBRawClientTest,
 	#superclass : #TestCase,
-	#category : 'AWS-DynamoDB-Tests'
+	#category : #'AWS-DynamoDB-Tests'
 }
 
 { #category : #running }
@@ -53,7 +53,7 @@ DynamoDBRawClientTest >> tearDown [
 	
 	dy := DynamoDBRawClient new.
 	operationName := #DeleteTable.
-	requestBody := JsonObject new at:'TableName' put: self tableName; asJsonString .
+	requestBody := Dictionary new at:'TableName' put: self tableName; asJsonString .
 	resp := dy operationName:  operationName contents: requestBody.
 	Json readFrom: (resp contents) readStream.
 ]

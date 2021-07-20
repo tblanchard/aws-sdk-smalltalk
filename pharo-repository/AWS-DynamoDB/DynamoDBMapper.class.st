@@ -1,7 +1,7 @@
 Class {
 	#name : #DynamoDBMapper,
 	#superclass : #Object,
-	#category : 'AWS-DynamoDB'
+	#category : #'AWS-DynamoDB'
 }
 
 { #category : #private }
@@ -15,9 +15,9 @@ DynamoDBMapper >> checkCollectionType: anObject [
 { #category : #private }
 DynamoDBMapper >> checkType: anObject key: aSymbol on: jsonObject [
 	anObject isNumber 
-		ifTrue:[ ^ jsonObject at: aSymbol asString put: (JsonObject new at:'N' put: anObject asString; yourself)  ].
+		ifTrue:[ ^ jsonObject at: aSymbol asString put: (Dictionary new at:'N' put: anObject asString; yourself)  ].
 	anObject isString 
-		ifTrue:[  ^ jsonObject at: aSymbol asString put: (JsonObject new at:'S' put: anObject convertUTF8; yourself)   ].
+		ifTrue:[  ^ jsonObject at: aSymbol asString put: (Dictionary new at:'S' put: anObject convertUTF8; yourself)   ].
 	anObject isCollection
 		 ifTrue:[ 
 			| result |
@@ -26,26 +26,26 @@ DynamoDBMapper >> checkType: anObject key: aSymbol on: jsonObject [
 			(result ='NS') ifTrue:[ 
 				| c |
 				c := anObject collect:[:v | v asString ].
-				^ jsonObject at: aSymbol asString put: (JsonObject new  at:'NS' put: c; yourself)  ].
+				^ jsonObject at: aSymbol asString put: (Dictionary new  at:'NS' put: c; yourself)  ].
 			
 			(result ='SS') ifTrue:[ 
 				| c |
 				c := anObject collect:[:v | v convertUTF8 ].
-				^ jsonObject at: aSymbol asString put: (JsonObject new at:'SS' put: c; yourself)  ].
+				^ jsonObject at: aSymbol asString put: (Dictionary new at:'SS' put: c; yourself)  ].
 			
 			(result ='BS') ifTrue:[ 
 				| c |
 				c := anObject collect:[:v | v asString ].
-				^ jsonObject at: aSymbol asString put: (JsonObject new at:'BS' put: c; yourself) . ].
+				^ jsonObject at: aSymbol asString put: (Dictionary new at:'BS' put: c; yourself) . ].
 		 ].
-	^ jsonObject at: aSymbol asString put: (JsonObject new at:'B' put: anObject asString ; yourself) 
+	^ jsonObject at: aSymbol asString put: (Dictionary new at:'B' put: anObject asString ; yourself) 
 		
 ]
 
 { #category : #private }
 DynamoDBMapper >> convert: aDictionary [
 	| jsonObject |
-	jsonObject := JsonObject new.
+	jsonObject := Dictionary new.
        aDictionary keysDo: [:k | 
 		| value boolean |
 		value := aDictionary at: k .

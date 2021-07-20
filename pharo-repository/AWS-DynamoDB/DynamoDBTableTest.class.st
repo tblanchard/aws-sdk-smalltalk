@@ -4,7 +4,7 @@ A DynamoDBTableTest is a test class for testing the behavior of DynamoDBTable
 Class {
 	#name : #DynamoDBTableTest,
 	#superclass : #TestCase,
-	#category : 'AWS-DynamoDB-Tests'
+	#category : #'AWS-DynamoDB-Tests'
 }
 
 { #category : #running }
@@ -53,7 +53,7 @@ DynamoDBTableTest >> tearDown [
 	
 	dy := DynamoDBRawClient new.
 	operationName := #DeleteTable.
-	requestBody := JsonObject new at:'TableName' put: self tableName; asJsonString .
+	requestBody := Dictionary new at:'TableName' put: self tableName; asJsonString .
 	resp := dy operationName:  operationName contents: requestBody.
 	Json readFrom: (resp contents) readStream.
 ]
@@ -62,7 +62,7 @@ DynamoDBTableTest >> tearDown [
 DynamoDBTableTest >> testDeleteItem [
 	| dynamoTable uuid result item1 item2 |
 	
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString36.
 	item1 := Dictionary newFrom: {'id' -> uuid }.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
 	
@@ -102,7 +102,7 @@ DynamoDBTableTest >> testDescribeTable [
 { #category : #'tests-api-getItem' }
 DynamoDBTableTest >> testGetItemBy [
 	| dynamoDbTable  result dummy uuid |
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString36.
 	dummy := Dictionary new.
 	dummy at:'id' put: uuid.
 	dummy at:'username' put: 'newapplesho'.
@@ -126,13 +126,13 @@ DynamoDBTableTest >> testListTables [
 { #category : #'tests-api-putItem' }
 DynamoDBTableTest >> testPutItem [
 	| dynamoDbTable  result  uuid item |
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString36.
 	item := Dictionary newFrom: {'id'-> uuid.}.
 	dynamoDbTable := DynamoDBTable tableNamed: self tableName.
 	result := dynamoDbTable putItem: item.
 	self assert: (result isEmpty).
 	
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString36.
 	item := Dictionary newFrom: {'id'-> uuid. 'name'-> 'newapplesho' }.
 	dynamoDbTable := DynamoDBTable tableNamed: self tableName.
 	result := dynamoDbTable putItem: item.
@@ -142,7 +142,7 @@ DynamoDBTableTest >> testPutItem [
 { #category : #'tests-api-putItem' }
 DynamoDBTableTest >> testPutItemConditionExpressionString [
 	| dynamoDbTable  result uuid dummy1 dummy2 dummy3 dummy4 response enu |
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString36.
 	dummy1 := {'id'->uuid. 'username'->'newapplesho'. 'description'->'foobar' } asDictionary.
 	dynamoDbTable := DynamoDBTable tableNamed: self tableName.
 	result := dynamoDbTable putItem: dummy1.
@@ -181,7 +181,7 @@ DynamoDBTableTest >> testPutItemConditionExpressionString [
 { #category : #'test-api-query' }
 DynamoDBTableTest >> testQueryKeyConditionExpressionStringBinding [
 	| dynamoTable  result uuid dummy |
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString36.
 	dummy := {'id'->uuid. 'username'->'newapplesho'. 'description'->'foobar' } asDictionary.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
 	result := dynamoTable putItem: dummy.
@@ -203,7 +203,7 @@ DynamoDBTableTest >> testScanAll [
 	dynamoDbTable := DynamoDBTable tableNamed: self tableName.	
 
 	20 timesRepeat: [ 
-		dynamoDbTable putItem: {'id'->UUID new primMakeUUID hex} asDictionary. ].
+		dynamoDbTable putItem: {'id'->UUID new asString36} asDictionary. ].
 
 	dynamoDbTable numberOfResultsToFetch: 5.
 	enu := dynamoDbTable enumerator.
