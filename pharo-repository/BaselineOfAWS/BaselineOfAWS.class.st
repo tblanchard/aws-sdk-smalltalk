@@ -17,6 +17,9 @@ BaselineOfAWS >> baseline: spec [
 			spec 
 				baseline: 'XMLParser' 
 				with: [ spec loads: #(Core); repository: 'github://tblanchard/XML-XMLParser/src' ].
+			spec 
+				baseline: 'Pastell' 
+				with: [ spec loads: #(Core); repository: 'github://pharo-contributions/XML-Pastell/src' ].
 			spec
 				package: 'AWS-Core';
 				package: 'AWS-DynamoDB' with: [ spec requires: #('AWS-Core') ];
