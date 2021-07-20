@@ -10,26 +10,13 @@ BaselineOfAWS >> baseline: spec [
 	spec
 		for: #common
 		do: [ 
-			spec
-				project: 'JSON'
-				with: [ spec
-						className: 'ConfigurationOfJSON';
-						file: 'ConfigurationOfJSON';
-						repository: 'http://smalltalkhub.com/mc/PharoExtras/JSON/main' ].
-			
 			spec 
 				baseline: 'NeoJSON'
 				with: [ 
-					spec repository: 'github://svenvc/NeoJSON/repository' ].
+					spec load: #(Core); repository: 'github://svenvc/NeoJSON/repository' ].
 			spec 
 				baseline: 'XMLParser' 
-				with: [ spec repository: 'github://tblanchard/XML-XMLParser/src' ].
-			spec
-				for: #'pharo3.x'
-				do: [ 
-					spec
-						package: 'Cryptography'
-						with: [ spec repository: 'http://smalltalkhub.com/mc/Cryptography/Cryptography/main' ]. ].
+				with: [ spec load: #(Core); repository: 'github://tblanchard/XML-XMLParser/src' ].
 			spec
 				package: 'AWS-Core';
 				package: 'AWS-DynamoDB' with: [ spec requires: #('AWS-Core') ];
@@ -39,4 +26,6 @@ BaselineOfAWS >> baseline: spec [
 				package: 'AWS-STS' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-CloudFront' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-SNS' with: [ spec requires: #('AWS-Core' 'XMLParser') ] ].
+			spec group: 'default' with: #( 'AWS-DynamoDB' 'AWS-Lambda AWS-S3' 'AWS-ElasticTranscoder' 'AWS-STS' 'AWS-CloudFront AWS-SNS').
+			spec group: 'all' with: #(default)
 ]
