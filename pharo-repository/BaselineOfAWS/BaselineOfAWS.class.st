@@ -26,6 +26,6 @@ BaselineOfAWS >> baseline: spec [
 				package: 'AWS-STS' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-CloudFront' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-SNS' with: [ spec requires: #('AWS-Core' 'XMLParser') ] ].
-			spec group: 'default' with: #( 'AWS-DynamoDB' 'AWS-Lambda AWS-S3' 'AWS-ElasticTranscoder' 'AWS-STS' 'AWS-CloudFront' 'AWS-SNS').
+			spec group: 'default' with: #( 'AWS-DynamoDB' 'AWS-Lambda' 'AWS-S3' 'AWS-ElasticTranscoder' 'AWS-STS' 'AWS-CloudFront' 'AWS-SNS').
 			spec group: 'all' with: #(default)
 ]
