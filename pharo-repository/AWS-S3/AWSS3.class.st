@@ -6,7 +6,7 @@ Class {
 
 { #category : #public }
 AWSS3 >> bucketNamed: bucketNameString [
-	^ S3Bucket named: bucketNameString 
+	^ (S3Bucket named: bucketNameString) service: self; yourself 
 ]
 
 { #category : #public }
