@@ -29,8 +29,35 @@ Class {
 	#instVars : [
 		'settingsDict'
 	],
+	#classVars : [
+		'cachedProfiles'
+	],
 	#category : #'AWS-Core'
 }
+
+{ #category : #'instance creation' }
+AWSConfig class >> cacheProfile: aProfileName settings: aSettingsDict [
+	 
+	cachedProfiles ifNil: [ cachedProfiles := IdentityDictionary new ].
+	aSettingsDict at: aProfileName asSymbol put: aSettingsDict
+]
+
+{ #category : #'instance creation' }
+AWSConfig class >> cachedProfile: aProfileName [
+	^cachedProfiles 
+		ifNil: [  ] 
+		ifNotNil: [ cachedProfiles at: aProfileName asSymbol 
+				ifPresent: [ :settings |
+					settings 
+						ifNil: [] 
+						ifNotNil: [
+							| profile |
+						profile := (self new).
+						settings keysAndValuesDo: [ :k :v |
+							profile at: k put: v].
+						profile  ]]
+				ifAbsent: [  ] ]
+]
 
 { #category : #'instance creation' }
 AWSConfig class >> default [
@@ -39,6 +66,12 @@ AWSConfig class >> default [
 
 { #category : #'instance creation' }
 AWSConfig class >> profile: aProfile [
+	^(self cachedProfile: aProfile) 
+		ifNil: [ self readProfile: aProfile ]
+]
+
+{ #category : #'instance creation' }
+AWSConfig class >> readProfile: aProfile [
 	| awsdir config credentials regionName secretKey secretUUID me |
 	awsdir := FileLocator home / '.aws'.
 	config := awsdir / 'config'.
