@@ -39,7 +39,7 @@ Class {
 AWSConfig class >> cacheProfile: aProfileName settings: aSettingsDict [
 	 
 	cachedProfiles ifNil: [ cachedProfiles := IdentityDictionary new ].
-	aSettingsDict at: aProfileName asSymbol put: aSettingsDict
+	cachedProfiles at: aProfileName asSymbol put: aSettingsDict
 ]
 
 { #category : #'instance creation' }
@@ -57,6 +57,16 @@ AWSConfig class >> cachedProfile: aProfileName [
 							profile at: k put: v].
 						profile  ]]
 				ifAbsent: [  ] ]
+]
+
+{ #category : #'instance creation' }
+AWSConfig class >> cachedProfiles [
+	^cachedProfiles
+]
+
+{ #category : #'instance creation' }
+AWSConfig class >> clearCachedProfiles [
+	cachedProfiles := nil
 ]
 
 { #category : #'instance creation' }
